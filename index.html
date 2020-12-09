@@ -23,8 +23,11 @@
                 <hr>
                 <ul class="list-group">
                     <li
-                      v-for="book in books" 
-                      class="list-group__item list-group-item">
+                      v-for="(book,index) in books" 
+                      class="list-group__item list-group-item"
+                      v-on:click="select_book(index)"
+                      :class="{'active': selected_bookIndex === index}"
+                    />
                       {{ book.name }}
                     </li>
                 </ul>
@@ -32,20 +35,24 @@
             <div class="col-md-8 pt-4">
                 <div class="row">
                     <div class="description col-md-5">
-                        <h2>Bukvar</h2>
-                        <img src="images/bukvar.png" class="description__image" alt="">
+                        <h2>{{ book.name }}</h2>
+                        <img 
+                          :src="book.image"
+                          class="description__image" 
+                          :alt="book.name"
+                        />
                     </div>
                     <div class="col-md-7">
                         <h3>Book details</h3>
                         <ul>
-                            <li>Author - <strong>V.G. Goreckiy</strong></li>
-                            <li>Year - <strong>1996</strong></li>
-                            <li>Owner - <strong>Larisa</strong></li>
+                            <li>Author - <strong>{{ book.author }}</strong></li>
+                            <li>Year - <strong>{{ book.year }}</strong></li>
+                            <li>Owner - <strong>{{ book.owner }}</strong></li>
                         </ul>
-                        <p>+7 989 774 55 22</p>
+                        <p v-if="phone_output"><a :href=`tel:${book.phone}`><strong>{{ book.phone }}</strong></a></p>
 
                         <button class="btn btn-primary">Buy</button>
-                        <button class="btn btn-outline-success mr-5">Show Phone</button>
+                        <button class="btn btn-outline-success mr-5" v-on:click="phone_output = true">Show Phone</button>
                     </div>
                 </div>
             </div>
