@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="app.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container app">
         <div class="row pt-5">
             <div class="col">
                 <h1>Old Books Order</h1>  
@@ -20,13 +20,13 @@
                     <label for="search">Find your book</label>
                     <input type="text" class="form-control" id="search">
                 </div>
+                <hr>
                 <ul class="list-group">
-                    <li class="list-group__item list-group-item-action">1</li>
-                    <li class="list-group__item list-group-item-action">2</li>
-                    <li class="list-group__item list-group-item-action">3</li>
-                    <li class="list-group__item list-group-item-action">4</li>
-                    <li class="list-group__item list-group-item-action">5</li>
-                    <li class="list-group__item list-group-item-action">6</li>
+                    <li
+                      v-for="book in books" 
+                      class="list-group__item list-group-item">
+                      {{ book.name }}
+                    </li>
                 </ul>
             </div>
             <div class="col-md-8 pt-4">
@@ -51,5 +51,7 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
