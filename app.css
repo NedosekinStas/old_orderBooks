@@ -1,3 +1,29 @@
 .description__image {
     height: 300px;
 }
+
+.list {
+    padding-left: 1.3rem;
+}
+
+.phone-block {
+    height: 40px;
+}
+
+.btn-block > button{
+    margin-right: 15px;
+}
+
+.modal {
+    display: block;
+}
+
+.modal-body {
+    display: flex;
+}
+
+.modal-body .list {
+    padding-left: 25px;
+    padding-top: 5px;
+    align-items: center;
+}

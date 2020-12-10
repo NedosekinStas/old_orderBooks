@@ -18,14 +18,19 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="search">Find your book</label>
-                    <input type="text" class="form-control" id="search">
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      id="search"
+                      v-model="search"
+                    />
                 </div>
                 <hr>
                 <ul class="list-group">
                     <li
-                      v-for="(book,index) in books" 
+                      v-for="(book,index) in filtered_book" 
                       class="list-group__item list-group-item"
-                      v-on:click="select_book(index)"
+                      @click="select_book(index)"
                       :class="{'active': selected_bookIndex === index}"
                     />
                       {{ book.name }}
@@ -34,8 +39,8 @@
             </div>
             <div class="col-md-8 pt-4">
                 <div class="row">
-                    <div class="description col-md-5">
-                        <h2>{{ book.name }}</h2>
+                    <div class="col-md-5 d-flex">
+                        <h2 class="p-2">{{ book.name }}</h2>
                         <img 
                           :src="book.image"
                           class="description__image" 
@@ -44,20 +49,79 @@
                     </div>
                     <div class="col-md-7">
                         <h3>Book details</h3>
-                        <ul>
+                        <ul class="list">
                             <li>Author - <strong>{{ book.author }}</strong></li>
                             <li>Year - <strong>{{ book.year }}</strong></li>
                             <li>Owner - <strong>{{ book.owner }}</strong></li>
                         </ul>
-                        <p v-if="phone_output"><a :href=`tel:${book.phone}`><strong>{{ book.phone }}</strong></a></p>
-
-                        <button class="btn btn-primary">Buy</button>
-                        <button class="btn btn-outline-success mr-5" v-on:click="phone_output = true">Show Phone</button>
+                        <div class="phone-block">
+                            <p v-if="phone_output"><a :href=`tel:${book.phone}`><strong>{{ book.phone }}</strong></a></p>
+                        </div>
+                        <div class="btn-block">
+                            <button class="btn btn-primary" @click="modal_visibility = true">Buy</button>
+                            <button class="btn btn-outline-success" @click="phone_output = !phone_output">{{ phone_btn_title }}</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row mt-5" v-if="logs.length">
+            <div class="col-md-12">
+                <ul class="list-group">
+                    <li
+                    v-for="log in logs" 
+                    class="list-group-item list-group-item-secondary"
+                    >{{ log }}</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Modal Window -->
+        <div class="modal fade show" tabindex="-1" v-if="modal_visibility">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"><strong>Current - Book {{ book.name }}</strong></h5>
+                  <button 
+                    type="button" 
+                    class="btn-close" 
+                    data-bs-dismiss="modal" 
+                    aria-label="Close"
+                    @click="modal_visibility = false"
+                    >
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <img
+                      width="250"
+                      :src="book.image"
+                      class="description__image" 
+                      :alt="book.name"
+                    />
+                    <ul class="list">
+                        <li>Author - <strong>{{ book.author }}</strong></li>
+                        <li>Year - <strong>{{ book.year }}</strong></li>
+                        <li>Owner - <strong>{{ book.owner }}</strong></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                  <button 
+                    type="button" 
+                    class="btn btn-secondary" 
+                    data-bs-dismiss="modal"
+                    @click="cancel_order"
+                  />Close</button>
+                  <button 
+                    type="button" 
+                    class="btn btn-primary"
+                    @click="new_order"
+                  />Buy</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-backdrop fade show" v-if="modal_visibility"></div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="app.js"></script>
 </body>
