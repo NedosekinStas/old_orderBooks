@@ -71,7 +71,11 @@
                     <li
                     v-for="log in logs" 
                     class="list-group-item list-group-item-secondary"
-                    >{{ log }}</li>
+                    :class="{
+                        'list-group-item-secondary': log.type === 'Close',
+                        'list-group-item-success': log.type === 'Complit'
+                    }"
+                    >{{ log.text }} {{ log.date | date }}</li>
                 </ul>
             </div>
         </div>

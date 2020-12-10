@@ -40,10 +40,10 @@ const app = new Vue({
         log(`Success order: ${this.book.name}`, 'Complit')
       )
     },
-    cancel_order(){
+    close_order(){
       this.modal_visibility = false;
       this.logs.push(
-        log(`Success order: ${this.book.name}`, 'Cancel')
+        log(`Cancceled order: ${this.book.name}`, 'Close')
       )
     } 
   },
@@ -56,5 +56,10 @@ const app = new Vue({
         return book.name.indexOf(this.search) > -1;
       })
     },
+    filters_date: {
+      date(value) {
+        return value.toLocaleString();
+      }
+    }
   }, 
 });
