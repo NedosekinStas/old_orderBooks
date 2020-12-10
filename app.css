@@ -27,3 +27,44 @@
     padding-top: 5px;
     align-items: center;
 }
+
+/* Animate */
+
+.phone-enter-active, .phone-leave-active {
+    transition: all .5s;
+}
+
+.phone-enter, .phone-leave-to {
+    transform: translateX(50px);
+    opacity: 0;
+}
+
+.model-enter-active, .model-leave-active {
+    transition: all .5s;
+}
+
+.model-enter, .model-leave-to {
+    transform: translateY(-100px);
+    opacity: 0;
+}
+
+.fade-enter-active{
+    animation: .75 fade forwards;
+}
+
+.fade-leave-active{
+    animation: .75 fade reverse;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: .5;
+    } 
+}

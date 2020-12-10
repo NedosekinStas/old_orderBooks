@@ -55,7 +55,9 @@
                             <li>Owner - <strong>{{ book.owner }}</strong></li>
                         </ul>
                         <div class="phone-block">
-                            <p v-if="phone_output"><a :href=`tel:${book.phone}`><strong>{{ book.phone }}</strong></a></p>
+                            <transition name="phone">
+                                <p v-if="phone_output"><a :href=`tel:${book.phone}`><strong>{{ book.phone }}</strong></a></p>
+                            </transition>
                         </div>
                         <div class="btn-block">
                             <button class="btn btn-primary" @click="modal_visibility = true">Buy</button>
@@ -80,6 +82,7 @@
             </div>
         </div>
         <!-- Modal Window -->
+        <transition name="model">
         <div class="modal fade show" tabindex="-1" v-if="modal_visibility">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -112,7 +115,7 @@
                     type="button" 
                     class="btn btn-secondary" 
                     data-bs-dismiss="modal"
-                    @click="cancel_order"
+                    @click="close_order"
                   />Close</button>
                   <button 
                     type="button" 
@@ -123,7 +126,8 @@
               </div>
             </div>
         </div>
-        <div class="modal-backdrop fade show" v-if="modal_visibility"></div>
+        </transition>
+        <transition name="fade"><div class="modal-backdrop fade show" v-if="modal_visibility"></div></transition>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
